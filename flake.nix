@@ -4,29 +4,23 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin/nix-darwin-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs =
-    inputs@{
-      self,
-      nixpkgs,
-      nixpkgs-unstable,
-      ...
-    }:
-    {
-      nixosConfigurations = {
-        server-nix = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
-          modules = [
-            ./modules/misc/unstable-pkgs-overlay.nix
-          ];
-        };
-        t490-nix = nixpkgs-unstable.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
-          modules = [ ./configuration.nix ];
-        };
-      };
+    inputs@{ ... }:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ "x86_64-linux" ];
+      imports = [
+        ./modules/hosts
+      ];
+      _module.args.rootPath = ./. ;
     };
 }
