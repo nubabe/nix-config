@@ -11,7 +11,7 @@ let
   hosts = builtins.filter (
     hostname: builtins.pathExists (path + "/${hostname}/metadata.nix")
   ) entries;
-  hostMeta = builtins.map (host: (import (path + "/${host}/metadata.nix"))) hosts;
+  hostMeta = builtins.map (host: (import (path + "/${host}/metadata.nix")) // { hostname = host; }) hosts;
 
   configurations = builtins.map (
     host:
@@ -45,6 +45,7 @@ in
         system = host.system;
         modules = [
           (path + "/${host.hostname}/configuration.nix")
+          { networking.hostName = host.hostname; }
         ];
       };
     }) configurations
