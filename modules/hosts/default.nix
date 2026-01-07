@@ -5,7 +5,7 @@
   ...
 }:
 let
-  path = rootPath + "/modules/hosts";
+  path = ./.;
 
   entries = builtins.attrNames (builtins.readDir path);
   hosts = builtins.filter (
