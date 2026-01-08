@@ -11,7 +11,9 @@ let
   hosts = builtins.filter (
     hostname: builtins.pathExists (path + "/${hostname}/metadata.nix")
   ) entries;
-  hostMeta = builtins.map (host: (import (path + "/${host}/metadata.nix")) // { hostname = host; }) hosts;
+  hostMeta = builtins.map (
+    host: (import (path + "/${host}/metadata.nix")) // { hostname = host; }
+  ) hosts;
 
   configurations = builtins.map (
     host:
@@ -43,6 +45,7 @@ in
     builtins.map (host: {
       ${host.flakeOutput}.${host.hostname} = host.systemBuilder {
         system = host.system;
+        specialArgs = { inherit inputs; };
         modules = [
           (path + "/${host.hostname}/configuration.nix")
           { networking.hostName = host.hostname; }
