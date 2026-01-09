@@ -5,52 +5,55 @@
   ...
 }:
 let
-  path = ./.;
+  hostsDir = ./.;
 
-  entries = builtins.attrNames (builtins.readDir path);
-  hosts = builtins.filter (
-    hostname: builtins.pathExists (path + "/${hostname}/metadata.nix")
-  ) entries;
-  hostMeta = builtins.map (
-    host: (import (path + "/${host}/metadata.nix")) // { hostname = host; }
-  ) hosts;
+  hostNames = builtins.filter (
+    hostName: builtins.pathExists (hostsDir + "/${hostName}/metadata.nix")
+  ) (builtins.attrNames (builtins.readDir hostsDir));
 
-  configurations = builtins.map (
-    host:
+  rawHostMeta = builtins.map (
+    hostName: (import (hostsDir + "/${hostName}/metadata.nix")) // { inherit hostName; }
+  ) hostNames;
+
+  buildPlans = builtins.map (
+    hostMeta:
     let
-      isUnstable = host.isUnstable or false;
-      system = host.system or "unknown";
+      isUnstable = hostMeta.isUnstable or false;
+      system = hostMeta.system or "unknown";
+      hostName = hostMeta.hostName;
     in
     if system == "x86_64-linux" then
-      host
-      // {
+      {
         flakeOutput = "nixosConfigurations";
         systemBuilder = (
           if isUnstable then inputs.nixpkgs-unstable.lib.nixosSystem else inputs.nixpkgs.lib.nixosSystem
         );
+        inherit hostName system;
       }
     else if system == "aarch64-darwin" then
-      host
-      // {
+      {
         flakeOutput = "darwinConfigurations";
         systemBuilder = inputs.nix-darwin.lib.darwinSystem;
+        inherit hostName system;
       }
     else
-      host
-  ) hostMeta;
+      null
+  ) rawHostMeta;
+
+  validBuildPlans = builtins.filter (buildPlan: buildPlan != null) buildPlans;
 in
 {
 
   flake = lib.foldl' lib.recursiveUpdate { } (
     builtins.map (host: {
-      ${host.flakeOutput}.${host.hostname} = host.systemBuilder {
+      ${host.flakeOutput}.${host.hostName} = host.systemBuilder {
         system = host.system;
         specialArgs = { inherit inputs; };
         modules = [
-          (path + "/${host.hostname}/configuration.nix")
-          { networking.hostName = host.hostname; }
+          (hostsDir + "/${host.hostName}/configuration.nix")
+          { networking.hostName = host.hostName; }
         ];
       };
-    }) configurations
+    }) validBuildPlans
   );
 }
