@@ -1,18 +1,16 @@
 {
   inputs,
   lib,
-  rootPath,
+  paths,
   ...
 }:
 let
-  hostsDir = ./.;
-
   hostNames = builtins.filter (
-    hostName: builtins.pathExists (hostsDir + "/${hostName}/metadata.nix")
-  ) (builtins.attrNames (builtins.readDir hostsDir));
+    hostName: builtins.pathExists (paths.hosts + "/${hostName}/metadata.nix")
+  ) (builtins.attrNames (builtins.readDir paths.hosts));
 
   rawHostMeta = builtins.map (
-    hostName: (import (hostsDir + "/${hostName}/metadata.nix")) // { inherit hostName; }
+    hostName: (import (paths.hosts + "/${hostName}/metadata.nix")) // { inherit hostName; }
   ) hostNames;
 
   buildPlans = builtins.map (
@@ -48,9 +46,9 @@ in
     builtins.map (host: {
       ${host.flakeOutput}.${host.hostName} = host.systemBuilder {
         system = host.system;
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs paths; };
         modules = [
-          (hostsDir + "/${host.hostName}/configuration.nix")
+          (paths.hosts + "/${host.hostName}/configuration.nix")
           { networking.hostName = host.hostName; }
         ];
       };

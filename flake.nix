@@ -21,6 +21,11 @@
       imports = [
         ./modules/hosts
       ];
-      _module.args.rootPath = ./. ;
+      _module.args.paths = rec {
+        root = ./.;
+        modules = root + "/modules";
+        users = modules + "/users";
+        hosts = modules + "/hosts";
+      };
     };
 }
