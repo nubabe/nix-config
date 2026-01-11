@@ -5,14 +5,22 @@
   ...
 }:
 let
+  # Returns list of hosts that have a configuration.nix
+  # e.g. [ "host01"  "host02" "host03"]
   hostNames = builtins.filter (
-    hostName: builtins.pathExists (paths.hosts + "/${hostName}/metadata.nix")
+    hostName: builtins.pathExists (paths.hosts + "/${hostName}/configuration.nix")
   ) (builtins.attrNames (builtins.readDir paths.hosts));
 
+  # Returns list of attribute sets
+  # e.g. [ { hostName = "..."; system = "..."; isUnstable = true; } ... ]
   rawHostMeta = builtins.map (
     hostName: (import (paths.hosts + "/${hostName}/metadata.nix")) // { inherit hostName; }
   ) hostNames;
 
+  # Returns list of attribute sets,
+  # with system build function and flake output name,
+  # and null if the host metadata does not contain a valid system attribute
+  # e.g. [ { hostName = "..."; systemBuilder = ...; flakeOutput = "..."; } ... ]
   buildPlans = builtins.map (
     hostMeta:
     let
@@ -38,6 +46,7 @@ let
       null
   ) rawHostMeta;
 
+  # Checks if any item in buildPlans is null and removes it
   validBuildPlans = builtins.filter (buildPlan: buildPlan != null) buildPlans;
 in
 {
