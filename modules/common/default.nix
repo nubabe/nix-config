@@ -16,7 +16,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    nvim
+    neovim
   ];
 
   services.openssh.enable = true;
