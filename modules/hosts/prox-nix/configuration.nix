@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, paths, ... }:
 
 {
   imports =
@@ -48,13 +48,6 @@
     variant = "";
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.nubabe = {
-    isNormalUser = true;
-    description = "nuyan";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [];
-  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

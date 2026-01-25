@@ -55,9 +55,10 @@ in
     builtins.map (host: {
       ${host.flakeOutput}.${host.hostName} = host.systemBuilder {
         system = host.system;
-        specialArgs = { inherit inputs paths; };
+        specialArgs = { inherit inputs paths host; };
         modules = [
           (paths.hosts + "/${host.hostName}/configuration.nix")
+          (paths.common)
           { networking.hostName = host.hostName; }
         ];
       };

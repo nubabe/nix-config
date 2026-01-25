@@ -24,8 +24,9 @@
       _module.args.paths = rec {
         root = ./.;
         modules = root + "/modules";
-        users = modules + "/users";
         hosts = modules + "/hosts";
+        common = modules + "/common";
+        services = modules + "/services";
       };
     };
 }
