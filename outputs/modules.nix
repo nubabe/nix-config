@@ -7,7 +7,7 @@
 
 {
   flake.nixosModules = {
-    commons = (paths.profiles + "/commons.nix");
+    commons = import (paths.profiles + "/commons.nix");
 
     users = import paths.users;
 
