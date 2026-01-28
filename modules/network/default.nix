@@ -18,7 +18,7 @@ in
   config = mkIf cfg.enable {
     networking = {
       nftables.enable = true;
-      firewall = true;
+      firewall.enable = true;
     };
   };
 }
