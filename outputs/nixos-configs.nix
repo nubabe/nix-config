@@ -35,7 +35,7 @@ in
             networking.hostName = host;
             nubabe.commons.enable = true;
           }
-          cfg.cfg
+          { config = cfg.cfg; }
         ];
     }
   ) linuxHosts;
