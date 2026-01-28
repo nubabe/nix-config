@@ -18,7 +18,7 @@ in
       type = types.str;
       default = "";
       example = "100.64.10.5";
-      description = "IPv4 adress in the 100.64.0.0/10 range to use.";
+      description = "IPv4 address in the 100.64.0.0/10 range to use.";
     };
     apiKeyFile = mkOption {
       type = types.nullOr types.path;
@@ -48,9 +48,11 @@ in
       allowedUDPPorts = [ config.services.tailscale.port ];
     };
 
-    systemd.services.tailscaled.serviceConfig.Environment = mkIf config.networking.nftables.enable [
-      "TS_DEBUG_FIREWALL_MODE=nftables"
-    ];
+    systemd.services.tailscaled = mkIf config.networking.nftables.enable {
+      serviceConfig.Environment = [
+        "TS_DEBUG_FIREWALL_MODE=nftables"
+      ];
+    };
 
     systemd.services.tailscale-set-ip = mkIf (cfg.ipv4 != "" && cfg.apiKeyFile != null) {
       after = [
