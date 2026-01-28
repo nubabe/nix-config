@@ -2,6 +2,7 @@
   inputs,
   lib,
   paths,
+  self,
   ...
 }:
 let

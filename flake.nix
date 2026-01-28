@@ -1,5 +1,5 @@
 {
-  description = "NixOS configuration";
+  description = "nubabe's NixOS configuration";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
@@ -7,10 +7,12 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-    nix-darwin = {
-      url = "github:LnL7/nix-darwin/nix-darwin-25.11";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixos-hardware.url = "github:nixos/nixos-hardware";
+
+    # nix-darwin = {
+    #   url = "github:LnL7/nix-darwin";
+    #   inputs.nixpkgs.follows = "nixpkgs-unstable";
+    # };
 
   };
 
@@ -18,15 +20,19 @@
     inputs@{ ... }:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" ];
-      imports = [
-        ./modules/hosts
-      ];
+      imports = builtins.map (file: ./outputs + "/${file}") (
+        builtins.attrNames (builtins.readDir ./outputs)
+      );
       _module.args.paths = rec {
         root = ./.;
         modules = root + "/modules";
-        hosts = modules + "/hosts";
-        common = modules + "/common";
+        hosts = root + "/hosts";
         services = modules + "/services";
+        profiles = modules + "/profiles";
+        hardware = modules + "/hardware";
+        network = modules + "/network";
+        misc = modules + "/misc";
+        users = modules + "/users";
       };
     };
 }
