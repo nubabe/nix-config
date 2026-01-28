@@ -8,5 +8,5 @@
   extraModules = [
     inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t490
   ];
-  cfg = {};
+  hostConfig = {};
 }

@@ -7,7 +7,7 @@
   branch = "stable";
   extraModules = [
   ];
-  cfg = {
+  hostConfig = {
     nubabe.services.tailscale.ipv4 = "100.99.10.2";
   };
 }
