@@ -29,6 +29,9 @@ in
         enable = true;
         username = "nubabe";
         name = "Nuyan";
+        autorizedSSHKeys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJbT2ErzGeM4IKpSpCPTOh4xizMswYLFeIulTS94pI23 nubabe@t490-arch"
+        ];
       };
 
     };

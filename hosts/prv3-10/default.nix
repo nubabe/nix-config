@@ -8,8 +8,10 @@
   extraModules = [
   ];
   hostConfig = {
-    nubabe.services.tailscale.ipv4 = "100.99.10.2";
-    imports = [ /etc/nixos/hardware-configuration.nix ];
+    nubabe.services.tailscale = {
+      ipv4 = "100.99.10.2";
+      tags = "nixos-server";
+    };
     system.stateVersion = "25.05";
     boot.loader.grub = {
       enable = true;

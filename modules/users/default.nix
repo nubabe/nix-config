@@ -27,6 +27,15 @@ in
       example = "Alice";
       description = "Name of the default user.";
     };
+    autorizedSSHKeys = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+      example = [
+        "ssh-rsa AAAAB3NzaC1yc2etc/etc/etcjwrsh8e596z6J0l7 example@host"
+        "ssh-ed25519 AAAAC3NzaCetcetera/etceteraJZMfk3QPfQ foo@bar"
+      ];
+      description = "List of public SSH keys (alias for users.users.<username>.openssh.authorizedKeys.keys).";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -40,6 +49,7 @@ in
         ]
         ++ (optionals config.networking.networkmanager.enable "networkmanager");
         packages = with pkgs; [ ];
+        openssh.authorizedKeys.keys = [ ];
       };
 
     };

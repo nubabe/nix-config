@@ -32,6 +32,16 @@ in
       example = "/run/secrets/tailscale_auth_key";
       description = "Alias for services.tailscale.authKeyFile";
     };
+    tags = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+      example = [
+        "eng"
+        "montreal"
+        "ssh"
+      ];
+      description = "ACL tags to request with the --advertise-tags flag.";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -41,6 +51,10 @@ in
       disableTaildrop = true;
       disableUpstreamLogging = true;
       authKeyFile = cfg.authKeyFile;
+      extraUpFlags = optionals (cfg.tags != [ ]) [
+        "--advertise-tags"
+        (builtins.concatStringsSep "," (builtins.map (tag: "tag:${tag}") cfg.tags))
+      ];
     };
 
     networking.firewall = {
@@ -83,7 +97,7 @@ in
         done
 
         getTailscaleIP() {
-          tailscale status --json | jq -r '.Self.TailscaleIPs[0]'
+          tailscale status --json | jq --raw-output '.Self.TailscaleIPs[0]'
         }
 
         getDeviceID() {
@@ -92,7 +106,7 @@ in
 
         if [[ $(getTailscaleIP) != ${cfg.ipv4} ]]; then
           echo "IP is not set. Updating IP via API..."
-          curl -f "https://api.tailscale.com/api/v2/device/$(getDeviceID)/ip" \
+          curl --fail "https://api.tailscale.com/api/v2/device/$(getDeviceID)/ip" \
             --request POST \
             --header 'Content-Type: application/json' \
             --header "Authorization: Bearer $(cat ${cfg.apiKeyFile})" \
