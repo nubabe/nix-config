@@ -6,17 +6,19 @@
   system = "x86_64-linux";
   branch = "stable";
   extraModules = [
+    ./disko.nix
+    ./hardware.nix
+    inputs.disko.nixosModules.disko
   ];
   hostConfig = {
     nubabe.services.tailscale = {
       ipv4 = "100.99.10.2";
-      tags = "nixos-server";
+      tags = [ "nixos-server" ];
     };
-    system.stateVersion = "25.05";
-    boot.loader.grub = {
-      enable = true;
-      device = "/dev/sda";
-      useOSProber = true;
-    };
+    services.qemuGuest.enable = true;
+    system.stateVersion = "25.11";
+    boot.loader.systemd-boot.enable = true;
+    boot.loader.efi.canTouchEfiVariables = true;
+
   };
 }
