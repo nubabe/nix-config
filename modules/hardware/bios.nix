@@ -27,7 +27,7 @@ in
 
     boot.loader = {
       grub.enable = true;
-      grub.device = cfg.disk;
+      grub.devices = [ cfg.disk ];
     };
 
     disko.devices = {
