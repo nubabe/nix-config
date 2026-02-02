@@ -13,7 +13,8 @@ in
 
 {
 
-  options.nubabe.hardware.proxmox-vm.enable = mkEnableOption "nubabe hardware configuration for a Proxmox VM with UEFI";
+  options.nubabe.hardware.proxmox-vm.enable =
+    mkEnableOption "nubabe hardware configuration for a Proxmox VM with UEFI";
 
   config = mkIf cfg.enable {
 

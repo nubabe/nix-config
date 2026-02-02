@@ -12,6 +12,7 @@
     inputs.disko.nixosModules.disko
 
     ./proxmox-vm.nix
+    ./bios.nix
   ];
 
 }
