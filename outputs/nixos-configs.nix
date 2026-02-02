@@ -36,6 +36,7 @@ in
             networking.hostName = host;
           }
           cfg.hostConfig
+          (paths.hosts + "/${host}/hardware.nix")
         ];
     }
   ) linuxHosts;
