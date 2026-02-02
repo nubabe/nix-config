@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 
@@ -12,6 +13,9 @@ let
 in
 
 {
+
+  imports = [ inputs.sops-nix.nixosModules.sops ];
+
   options.nubabe.secrets.enable = mkEnableOption "nubabe secrets";
 
   config = mkIf cfg.enable {

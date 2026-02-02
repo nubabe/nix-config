@@ -27,7 +27,13 @@ in
       example = "Alice";
       description = "Name of the default user.";
     };
-    autorizedSSHKeys = mkOption {
+    hashedPasswordFile = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      example = "/run/secrets/hashed_user_password";
+      description = "Path to a file containing a hashed password. See users.users.<name>.hashedPasswordFile.";
+    };
+    authorizedSSHKeys = mkOption {
       type = types.listOf types.str;
       default = [ ];
       example = [
@@ -49,7 +55,8 @@ in
         ]
         ++ (optionals config.networking.networkmanager.enable "networkmanager");
         packages = with pkgs; [ ];
-        openssh.authorizedKeys.keys = [ ];
+        openssh.authorizedKeys.keys = cfg.authorizedSSHKeys;
+        hashedPasswordFile = cfg.hashedPasswordFile;
       };
 
     };

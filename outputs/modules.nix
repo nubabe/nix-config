@@ -7,11 +7,9 @@
 
 {
   flake.nixosModules = {
-    commons = import (paths.profiles + "/commons.nix");
-
-    users = import paths.users;
-
-    networking = import paths.network;
-    tailscale = import (paths.network + "/tailscale.nix");
+    modules = { ... }: {
+      _module.args.inputs = inputs;
+      imports = [ paths.modules ];
+    };
   };
 }

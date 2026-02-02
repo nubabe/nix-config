@@ -18,8 +18,9 @@ let
   linuxHosts = lib.filterAttrs (host: cfg: (builtins.match ".*-linux" cfg.system) != null) hosts;
 
   modules = [
-  ]
-  ++ (builtins.attrValues self.nixosModules);
+    self.nixosModules.modules
+  ];
+  # ++ (builtins.attrValues self.nixosModules);
 in
 {
   flake.nixosConfigurations = builtins.mapAttrs (
@@ -33,7 +34,6 @@ in
         ++ [
           {
             networking.hostName = host;
-            nubabe.commons.enable = true;
           }
           cfg.hostConfig
         ];

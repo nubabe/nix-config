@@ -13,6 +13,8 @@ in
 
 {
 
+  imports = [ ./tailscale.nix ];
+
   options.nubabe.networking.enable = mkEnableOption "nubabe specific networking";
 
   config = mkIf cfg.enable {
