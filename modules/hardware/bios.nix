@@ -19,7 +19,7 @@ in
       type = types.str;
       default = "/dev/sda";
       example = "/dev/nvme0n1";
-      description = "The disk to install the system on to. Used by disko.";
+      description = "The disk to install the system on to. Used by disko and GRUB.";
     };
   };
 
@@ -27,7 +27,7 @@ in
 
     boot.loader = {
       grub.enable = true;
-      grub.device = cfg.disk;
+      grub.devices = [ cfg.disk ];
     };
 
     disko.devices = {
