@@ -25,10 +25,10 @@ in
 
   config = mkIf cfg.enable {
 
-    boot.loader = {
-      grub.enable = true;
-      grub.devices = [ cfg.disk ];
-    };
+    # boot.loader = {
+    #   grub.enable = true;
+    #   grub.devices = [ cfg.disk ];
+    # };
 
     disko.devices = {
       disk = {
