@@ -8,7 +8,7 @@
 
 {
 
-  inputs = [
+  imports = [
     inputs.disko.nixosModules.disko
 
     ./proxmox-vm.nix
