@@ -9,6 +9,12 @@
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
+
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
     # nix-darwin = {
     #   url = "github:LnL7/nix-darwin";
     #   inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -27,12 +33,6 @@
         root = ./.;
         modules = root + "/modules";
         hosts = root + "/hosts";
-        services = modules + "/services";
-        profiles = modules + "/profiles";
-        hardware = modules + "/hardware";
-        network = modules + "/network";
-        misc = modules + "/misc";
-        users = modules + "/users";
       };
     };
 }
