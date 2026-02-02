@@ -16,6 +16,9 @@ in
   options.nubabe.profiles.all.enable = mkEnableOption "nubabe default host config";
 
   config = mkIf cfg.enable {
+
+    nubabe.networking.enable = true;
+
     environment.systemPackages = with pkgs; [
       neovim
     ];
@@ -35,5 +38,6 @@ in
         LC_MONETARY = "en_IE.UTF-8";
       };
     };
+
   };
 }

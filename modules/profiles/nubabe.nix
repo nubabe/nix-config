@@ -25,7 +25,6 @@ in
         apiKeyFile = config.sops.secrets."tailscale/api_key".path;
       };
 
-      networking.enable = true;
       secrets.enable = true;
 
       users = {
