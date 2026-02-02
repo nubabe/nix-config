@@ -10,5 +10,5 @@ nix run github:nix-community/nixos-anywhere -- \
 	--generate-hardware-config nixos-generate-config "./hosts/$TARGET_HOSTNAME/hardware.nix" \
 	--flake ".#$TARGET_HOSTNAME" \
 	--target-host "$TARGET_HOST" \
-	--build-on remote \
+#	--build-on remote \
 	--extra-files ./extra-files
