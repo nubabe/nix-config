@@ -13,4 +13,3 @@ nix run github:nix-community/nixos-anywhere \
 	--flake ".#$TARGET_HOSTNAME" \
 	--target-host "$TARGET_HOST" \
 	--extra-files ./extra-files
-#	--build-on remote \
