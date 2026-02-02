@@ -5,10 +5,8 @@ sleep 5
 
 TARGET_HOSTNAME="$1"
 
-nix run 'nixpkgs#nixos-generate-config' \
-	--extra-experimental-features "nix-command flakes" \
-	-- \
-	--no-filesystems
+nixos-generate-config \
+	--no-filesystems \
 	--show-hardware-config > "./hosts/$TARGET_HOSTNAME/hardware.nix"
 git add "./hosts/$TARGET_HOSTNAME/hardware.nix"
 
