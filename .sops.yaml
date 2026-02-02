@@ -1,0 +1,7 @@
+keys:
+  - &nubabe age1lkz2h3qyjj0wc60t3du2tq9s0f3qtx4uqzknqc77wqhkjmq4tyns98u6ux
+creation_rules:
+  - path_regex: modules/secrets/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+          - *nubabe
