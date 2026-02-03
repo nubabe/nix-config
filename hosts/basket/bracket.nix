@@ -30,7 +30,7 @@
   virtualisation.oci-containers.containers."bracket-backend" = {
     image = "ghcr.io/evroon/bracket-backend";
     environment = {
-      "CORS_ORIGINS" = "*";
+      "CORS_ORIGINS_REGEX" = "*";
       "ENVIRONMENT" = "PRODUCTION";
       "JWT_SECRET" = "7149241ad715a6ff7f3885c76e93c802553442d4471bcc39e1248990e29196db";
       "PG_DSN" = "postgresql://bracket_prod:bracket_prod@postgres:5432/bracket_prod";
