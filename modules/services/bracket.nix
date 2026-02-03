@@ -40,6 +40,8 @@ in
       group = "${cfg.user}";
     };
 
+    users.groups.${cfg.user} = {};
+
     services.postgresql = {
       enable = true;
       ensureDatabases = [ cfg.user ];
