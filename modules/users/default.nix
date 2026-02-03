@@ -63,7 +63,7 @@ in
         packages = with pkgs; [ ];
         openssh.authorizedKeys.keys = cfg.authorizedSSHKeys;
         hashedPasswordFile = cfg.hashedPasswordFile;
-        initialHashedPassword = cfg.initialHashedPassword;
+        hashedPassword = cfg.initialHashedPassword;
       };
 
     };
