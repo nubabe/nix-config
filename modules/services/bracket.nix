@@ -37,6 +37,7 @@ in
 
     users.users.${cfg.user} = {
       isSystemUser = true;
+      group = "${cfg.user}";
     };
 
     services.postgresql = {
