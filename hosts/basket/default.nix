@@ -20,7 +20,7 @@
     };
     system.stateVersion = "25.11";
     networking.networkmanager.enable = true;
-    networking.firewal.allowedTCPPorts = [ 8400 3000 ];
+    networking.firewall.allowedTCPPorts = [ 8400 3000 ];
 
   };
 }
