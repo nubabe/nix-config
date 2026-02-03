@@ -75,15 +75,13 @@ in
           ALLOW_USER_REGISTRATION = "false";
           SERVE_FRONTEND = "true";
           API_PREFIX = "/api";
+          HOME = "${bracketSource}/bracket";
         };
 
         serviceConfig = {
           Type = "simple";
           User = cfg.user;
           WorkingDirectory = "${bracketSource}/bracket/backend";
-
-          CacheDirectory = cfg.user;
-          RuntimeDirectory = cfg.user;
 
           ExecStart = "${pkgs.uv}/bin/uv run gunicorn -k uvicorn.workers.UvicornWorker bracket.app:app --bind localhost:8400 --workers 1";
 
