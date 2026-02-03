@@ -15,6 +15,8 @@
       hardware.uefi.enable = true;
       users.username = "nubabe";
       users.initialHashedPassword = "$y$j9T$KsdYlmmKYluOW.rcFknvs1$GiU7K6di9pHHALGb6ZqAVsBBivfaKNGzKKUrTz1wcRD";
+      services.bracket.enable = true;
+      networking.firewall.allowedTCPPorts = [ 8400 ];
     };
     system.stateVersion = "25.11";
 

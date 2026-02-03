@@ -8,5 +8,6 @@
 {
   imports = [
     ./ssh.nix
+    ./bracket.nix
   ];
 }
