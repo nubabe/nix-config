@@ -13,14 +13,14 @@
         server.enable = true;
       };
       hardware.uefi.enable = true;
+      users.enable = true;
       users.username = "nubabe";
-      # users.initialHashedPassword = "$y$j9T$KsdYlmmKYluOW.rcFknvs1$GiU7K6di9pHHALGb6ZqAVsBBivfaKNGzKKUrTz1wcRD";
+      users.initialHashedPassword = "$y$j9T$KsdYlmmKYluOW.rcFknvs1$GiU7K6di9pHHALGb6ZqAVsBBivfaKNGzKKUrTz1wcRD";
       services.bracket.enable = true;
     };
     system.stateVersion = "25.11";
     networking.firewall.allowedTCPPorts = [ 8400 ];
     networking.networkmanager.enable = true;
-    users.users.nubabe.password = "basket2026"
 
   };
 }
