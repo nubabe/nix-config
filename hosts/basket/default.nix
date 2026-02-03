@@ -5,6 +5,7 @@
   system = "x86_64-linux";
   branch = "stable";
   extraModules = [
+    ./bracket.nix
   ];
   hostConfig = {
     nubabe = {
@@ -19,6 +20,7 @@
     };
     system.stateVersion = "25.11";
     networking.networkmanager.enable = true;
+    networking.firewal.allowedTCPPorts = [ 8400 3000 ];
 
   };
 }
