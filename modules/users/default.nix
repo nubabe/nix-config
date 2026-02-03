@@ -14,31 +14,37 @@ in
 {
 
   options.nubabe.users = {
+
     enable = mkEnableOption "nubabe users";
+
     username = mkOption {
       type = types.str;
       default = "nixos";
       example = "alice";
       description = "Username for the default user.";
     };
+
     name = mkOption {
       type = types.str;
       default = "nixos";
       example = "Alice";
       description = "Name of the default user.";
     };
+
     hashedPasswordFile = mkOption {
       type = types.nullOr types.str;
       default = null;
       example = "/run/secrets/hashed_user_password";
       description = "Path to a file containing a hashed password. See users.users.<name>.hashedPasswordFile.";
     };
+
     initialHashedPassword = mkOption {
       type = types.nullOr types.str;
       default = null;
       example = "$y$j9T$Q5yehP0GeReQZ9lkC2CNa1$JW2wFazO6DPLrSQmvunM4U1kQ1FT0QMuDzCf.sMGeq2";
       description = "Hashed password. See users.users.<name>.initialHashedPassword";
     };
+
     authorizedSSHKeys = mkOption {
       type = types.listOf types.str;
       default = [ ];
