@@ -12,7 +12,7 @@ let
 
   cfg = config.nubabe.services.bracket;
 
-  bracketSource = "/var/lib/bracket";
+  bracketSource = "/var/lib";
 
   # bracketSource = pkgs.fetchFromGitHub {
   #   owner = "evroon";
