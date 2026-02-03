@@ -21,6 +21,6 @@
     system.stateVersion = "25.11";
     networking.networkmanager.enable = true;
     networking.firewall.allowedTCPPorts = [ 8400 3000 ];
-
+    programs.nix-ld.enable = true;
   };
 }
