@@ -34,6 +34,8 @@
       "ENVIRONMENT" = "PRODUCTION";
       "JWT_SECRET" = "7149241ad715a6ff7f3885c76e93c802553442d4471bcc39e1248990e29196db";
       "PG_DSN" = "postgresql://bracket_prod:bracket_prod@postgres:5432/bracket_prod";
+      "ADMIN_EMAIL" = "nubabe.me+bracket@gmail.com";
+      "ADMIN_PASSWORD" = "basket2026";
     };
     volumes = [
       "bracket_backend:/app/static:rw"
