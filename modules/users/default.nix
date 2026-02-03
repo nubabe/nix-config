@@ -33,6 +33,12 @@ in
       example = "/run/secrets/hashed_user_password";
       description = "Path to a file containing a hashed password. See users.users.<name>.hashedPasswordFile.";
     };
+    initialHashedPassword = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      example = "$y$j9T$Q5yehP0GeReQZ9lkC2CNa1$JW2wFazO6DPLrSQmvunM4U1kQ1FT0QMuDzCf.sMGeq2";
+      description = "Hashed password. See users.users.<name>.initialHashedPassword";
+    };
     authorizedSSHKeys = mkOption {
       type = types.listOf types.str;
       default = [ ];
@@ -57,6 +63,7 @@ in
         packages = with pkgs; [ ];
         openssh.authorizedKeys.keys = cfg.authorizedSSHKeys;
         hashedPasswordFile = cfg.hashedPasswordFile;
+        initialHashedPassword = cfg.initialHashedPassword;
       };
 
     };
