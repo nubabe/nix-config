@@ -23,6 +23,7 @@ in
 
     environment.systemPackages = with pkgs; [
       neovim
+      git
     ];
 
     nix.settings.experimental-features = [
