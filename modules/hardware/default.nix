@@ -13,6 +13,7 @@
 
     ./proxmox-vm.nix
     ./bios.nix
+    ./uefi.nix
   ];
 
 }

@@ -12,8 +12,7 @@
         all.enable = true;
         server.enable = true;
       };
-      hardware.bios.enable = true;
-      hardware.bios.disk = "/dev/sda";
+      hardware.uefi.enable = true;
       users.username = "nubabe";
     };
     system.stateVersion = "25.11";
