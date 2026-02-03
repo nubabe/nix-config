@@ -20,7 +20,6 @@ in
     nubabe = {
 
       services.tailscale = {
-        enable = true;
         authKeyFile = config.sops.secrets."tailscale/auth_key".path;
         apiKeyFile = config.sops.secrets."tailscale/api_key".path;
       };

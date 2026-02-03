@@ -19,6 +19,8 @@ in
 
     nubabe.networking.enable = true;
 
+    nubabe.users.enable = true;
+
     environment.systemPackages = with pkgs; [
       neovim
     ];

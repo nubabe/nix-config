@@ -13,7 +13,6 @@
         server.enable = true;
       };
       hardware.uefi.enable = true;
-      users.enable = true;
       users.username = "nubabe";
       users.initialHashedPassword = "$y$j9T$KsdYlmmKYluOW.rcFknvs1$GiU7K6di9pHHALGb6ZqAVsBBivfaKNGzKKUrTz1wcRD";
       services.bracket.enable = true;
