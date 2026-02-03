@@ -83,7 +83,7 @@ in
           User = cfg.user;
           WorkingDirectory = "${bracketSource}/bracket/backend";
 
-          ExecStart = "${pkgs.uv}/bin/uv run gunicorn -k uvicorn.workers.UvicornWorker bracket.app:app --bind localhost:8400 --workers 1";
+          ExecStart = "${pkgs.uv}/bin/uv run gunicorn -k uvicorn.workers.UvicornWorker bracket.app:app --bind 0.0.0.0:8400 --workers 1";
 
           TimeoutSec = 15;
           Restart = "always";
