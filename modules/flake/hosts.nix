@@ -1,0 +1,94 @@
+{
+  inputs,
+  config,
+  lib,
+  withSystem,
+  ...
+}:
+
+let
+
+  inherit (lib) mkOption types literalExpression mkDefault mapAttrs;
+
+  cfg = config.simpleHosts;
+
+  hostSubmodule = types.submodule {
+    options = {
+
+      arch = mkOption {
+        type = types.enum [
+          "x86_64"
+          "aarch64"
+        ];
+        default = "x86_64";
+        example = "aarch64";
+        description = "Architecture of the host";
+      };
+
+      stateVersion = mkOption {
+        type = types.str;
+        default = "";
+        example = "25.11";
+        description = "Option to set system.stateVersion";
+      };
+
+      modules = mkOption {
+        type = types.listOf types.deferredModule;
+        default = [ ];
+        example = literalExpression ''
+          [
+            ./modules/something.nix
+            { config.something = "value"; }
+          ]
+        '';
+        description = "List of modules to import in the host.";
+      };
+
+    };
+  };
+
+  mkHost =
+    name: attrs: system: builder:
+    builder {
+      inherit system;
+      modules = [
+        {
+          networking.hostName = mkDefault name;
+          system.stateVersion = attrs.stateVersion;
+          nixpkgs.pkgs = withSystem system ({ pkgs, ... }: pkgs);
+        }
+      ]
+      ++ attrs.modules;
+    };
+
+in
+
+{
+
+  options.simpleHosts = {
+
+    hosts = {
+      nixos = mkOption {
+        type = types.attrsOf hostSubmodule;
+        default = { };
+        description = "An attribute set of nixos configurations to be exposed by the flake.";
+      };
+      darwin = mkOption {
+        type = types.attrsOf hostSubmodule;
+        default = { };
+        description = "An attribute set of darwin configurations to be exposed by the flake.";
+      };
+    };
+
+  };
+
+  config.flake = {
+    nixosConfigurations = mapAttrs (
+      name: attrs: mkHost name attrs "${attrs.arch}-linux" inputs.nixpkgs.lib.nixosSystem
+    ) cfg.hosts.nixos;
+    darwinConfigurations = mapAttrs (
+      name: attrs: mkHost name attrs "${attrs.arch}-darwin" inputs.nix-darwin.lib.darwinSystem
+    ) cfg.hosts.darwin;
+  };
+
+}

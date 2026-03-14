@@ -5,6 +5,7 @@
   lib,
   ...
 }:
+
 let
   branches = {
     stable = inputs.nixpkgs.lib.nixosSystem;
@@ -22,6 +23,7 @@ let
   ];
   # ++ (builtins.attrValues self.nixosModules);
 in
+
 {
   flake.nixosConfigurations = builtins.mapAttrs (
     host: cfg:
