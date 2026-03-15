@@ -6,6 +6,7 @@
     arch = "x86_64";
     stateVersion = "25.11";
     modules = [
+      inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t490
       {
         nubabe.profiles = [
           "core"
