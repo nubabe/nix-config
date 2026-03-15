@@ -1,6 +1,7 @@
 { inputs, lib, ... }:
 
 let
+  inherit (lib) attrValues;
   modules = inputs.self.modules;
 in
 
@@ -8,13 +9,13 @@ in
 
   flake = {
     nixosModules.default = {
-      imports = lib.attrValues (modules.generic or {}) ++ lib.attrValues (modules.nixos or {});
+      imports = attrValues (modules.generic or {}) ++ attrValues (modules.nixos or {});
     };
     darwinModules.default = {
-      imports = lib.attrValues (modules.generic or {}) ++ lib.attrValues (modules.darwin or {});
+      imports = attrValues (modules.generic or {}) ++ attrValues (modules.darwin or {});
     };
     homeModules.default = {
-      imports = lib.attrValues (modules.homeManager or {});
+      imports = attrValues (modules.homeManager or {});
     };
   };
 

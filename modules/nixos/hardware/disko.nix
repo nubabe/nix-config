@@ -13,12 +13,12 @@
     with lib;
 
     let
-      cfg = config.nubabe.hardware.diskoSystemDisk;
+      cfg = config.nubabe.hardware.disko.systemDisk;
     in
 
     {
 
-      options.nubabe.hardware.diskoSystemDisk = {
+      options.nubabe.hardware.disko.systemDisk = {
         enable = mkEnableOption "nubabe system disk partitioning";
         systemDisk = mkOption {
           type = types.str;

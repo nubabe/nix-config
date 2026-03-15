@@ -48,7 +48,7 @@ let
   };
 
   mkHost =
-    name: attrs: system: builder:
+    name: attrs: system: builder: extraModules:
     builder {
       inherit system;
       modules = [
@@ -58,7 +58,8 @@ let
           nixpkgs.pkgs = withSystem system ({ pkgs, ... }: pkgs);
         }
       ]
-      ++ attrs.modules;
+      ++ attrs.modules
+      ++ extraModules;
     };
 
 in
@@ -66,6 +67,19 @@ in
 {
 
   options.simpleHosts = {
+
+    modules = {
+      nixos = mkOption {
+        type = types.listOf types.deferredModule;
+        default = [];
+        description = "List of modules to get imported into every nixos host.";
+      };
+      darwin = mkOption {
+        type = types.listOf types.deferredModule;
+        default = [];
+        description = "List of modules to get imported into every darwin host.";
+      };
+    };
 
     hosts = {
       nixos = mkOption {
@@ -84,10 +98,10 @@ in
 
   config.flake = {
     nixosConfigurations = mapAttrs (
-      name: attrs: mkHost name attrs "${attrs.arch}-linux" inputs.nixpkgs.lib.nixosSystem
+      name: attrs: mkHost name attrs "${attrs.arch}-linux" inputs.nixpkgs.lib.nixosSystem cfg.modules.nixos
     ) cfg.hosts.nixos;
     darwinConfigurations = mapAttrs (
-      name: attrs: mkHost name attrs "${attrs.arch}-darwin" inputs.nix-darwin.lib.darwinSystem
+      name: attrs: mkHost name attrs "${attrs.arch}-darwin" inputs.nix-darwin.lib.darwinSystem cfg.modules.darwin
     ) cfg.hosts.darwin;
   };
 

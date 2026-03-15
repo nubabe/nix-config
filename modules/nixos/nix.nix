@@ -1,7 +1,7 @@
 { ... }:
 
 {
-  flake.modules.nixos.nix =
+  flake.modules.generic.nix =
     {
       config,
       lib,
