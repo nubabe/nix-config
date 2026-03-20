@@ -56,12 +56,15 @@ in
               inherit (globalVars) username name;
               authorizedSSHKeys = [ ];
             };
+            home-manager.enable = true;
           };
         })
         (mkIf' "server" {
           nubabe.services = {
             openssh.enable = true;
-            tailscale.tags = [ "nixos-server" ];
+            tailscale.tags = [
+              "nixos-server"
+            ];
           };
         })
         (mkIf' "vm" { nubabe.hardware.vm.enable = true; })

@@ -9,6 +9,7 @@
       inputs.disko.nixosModules.default
     ];
     darwin = [
+      inputs.self.darwinModules.default
       inputs.home-manager.darwinModules.default
     ];
   };
