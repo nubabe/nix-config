@@ -37,7 +37,7 @@ in
         example = literalExpression ''
           [ "core" "server" "vm" ]
         '';
-        description = "List of ";
+        description = "List of profile names to enable.";
       };
 
       config = mkMerge [
@@ -57,6 +57,8 @@ in
               authorizedSSHKeys = [ ];
             };
             home-manager.enable = true;
+            home-manager.profiles = [ "core" ];
+            shell.enable = true;
           };
         })
         (mkIf' "server" {
@@ -69,6 +71,12 @@ in
         })
         (mkIf' "vm" { nubabe.hardware.vm.enable = true; })
         (mkIf' "disko" { nubabe.hardware.disko.systemDisk.enable = true; })
+        (mkIf' "workstation" {
+          nubabe = {
+            home-manager.profiles = [ "graphical" ];
+            graphical.enable = true;
+          };
+        })
       ];
     };
 

@@ -8,12 +8,9 @@
     modules = [
       inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t490
       {
-        nubabe.profiles = [
-          "core"
-          "workstation"
-          "disko"
-        ];
-        nubabe.services.tailscale.ipv4 = "100.99.1.1.";
+        nubabe = {
+          services.tailscale.ipv4 = "100.99.1.1.";
+        };
       }
     ];
   };

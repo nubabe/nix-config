@@ -29,7 +29,6 @@
           l = "ls -la --color=auto";
           connect = "nmcli device connect";
           sudo = "sudo ";
-          rswb = "killall waybar ; nohup waybar &";
         };
 
       };
