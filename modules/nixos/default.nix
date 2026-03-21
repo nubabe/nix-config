@@ -29,10 +29,11 @@
             initialHashedPassword = null;
             authorizedSSHKeys = [ ];
           };
-          tailscale = {
+          services.tailscale = {
             apiKeyFile = null;
             authKeyFile = null;
           };
+          services.openssh.port = 2009;
         };
       };
 

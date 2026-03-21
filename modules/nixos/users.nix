@@ -62,22 +62,21 @@
       };
 
       config = mkIf cfg.enable {
-        users.users = {
-
-          ${cfg.username} = {
-            isNormalUser = true;
-            description = cfg.name;
-            extraGroups = [
-              "wheel"
-            ]
-            ++ (optional config.networking.networkmanager.enable "networkmanager");
-            packages = with pkgs; [ ];
-            openssh.authorizedKeys.keys = cfg.authorizedSSHKeys;
-            hashedPasswordFile = cfg.hashedPasswordFile;
-            initialHashedPassword = cfg.initialHashedPassword;
-          };
-
+        users.users.${cfg.username} = {
+          isNormalUser = true;
+          description = cfg.name;
+          extraGroups = [
+            "wheel"
+          ]
+          ++ (optional config.networking.networkmanager.enable "networkmanager");
+          packages = with pkgs; [ ];
+          openssh.authorizedKeys.keys = cfg.authorizedSSHKeys;
+          hashedPasswordFile = cfg.hashedPasswordFile;
+          initialHashedPassword = cfg.initialHashedPassword;
+          shell = pkgs.zsh;
         };
+
+        programs.zsh.enable = true;
       };
     };
 

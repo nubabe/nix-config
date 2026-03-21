@@ -6,10 +6,10 @@
     { config, lib, ... }:
     let
       inherit (lib) mkEnableOption mkIf;
-      cfg = config.nubabe.shell;
+      cfg = config.nubabe.terminal.shell;
     in
     {
-      options.nubabe.shell.enable = mkEnableOption "nubabe home-manager shell config";
+      options.nubabe.terminal.shell.enable = mkEnableOption "nubabe home-manager shell config";
 
       config = mkIf cfg.enable {
 

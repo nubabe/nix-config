@@ -8,9 +8,41 @@
     modules = [
       {
         nubabe = {
-          services.tailscale = {
-            ipv4 = "100.99.0.1";
+          common.enable = true;
+          hardware = {
+            disko = {
+              systemDisk = {
+                enable = true;
+                homeSize = null;
+                rootSize = "100%";
+                swapSize = "8G";
+                systemDisk = "/dev/sda";
+              };
+            };
+            vm.enable = true;
           };
+          home-manager = {
+            enable = true;
+            modules = [
+              {
+                nubabe = {
+                  terminal = {
+                    shell.enable = true;
+                    coreTools.enable = true;
+                  };
+                };
+              }
+            ];
+          };
+          services = {
+            openssh.enable = true;
+            tailscale = {
+              enable = true;
+              ipv4 = "100.99.0.1";
+              tags = [ "nixos-server" ];
+            };
+          };
+          users.enable = true;
         };
       }
     ];

@@ -9,6 +9,7 @@
       inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t490
       {
         nubabe = {
+          common.enable = true;
           graphical.enable = true;
           hardware = {
             disko = {
@@ -16,35 +17,33 @@
                 enable = true;
                 homeSize = "100%";
                 rootSize = "64G";
-                swapSize = "8G";
+                swapSize = "16G";
                 systemDisk = "/dev/sda";
               };
             };
-            vm.enable = false;
           };
           home-manager = {
             enable = true;
-            modules = [ ];
+            modules = [
+              {
+                nubabe = {
+                  graphical.browser.enable = true;
+                  terminal = {
+                    shell.enable = true;
+                    coreTools.enable = true;
+                  };
+                };
+              }
+            ];
           };
           services = {
-            openssh = {
-              enable = false;
-              port = 22;
-            };
             tailscale = {
-              apiKeyFile = null;
-              authKeyFile = null;
-              enable = false;
+              enable = true;
               ipv4 = "100.99.1.1.";
               tags = [ ];
             };
           };
-          shell = {
-            enable = false;
-          };
-          users = {
-            enable = false;
-          };
+          users.enable = true;
         };
       }
     ];
