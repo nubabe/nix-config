@@ -23,16 +23,7 @@
           };
           home-manager = {
             enable = true;
-            modules = [
-              {
-                nubabe = {
-                  terminal = {
-                    shell.enable = true;
-                    coreTools.enable = true;
-                  };
-                };
-              }
-            ];
+            modules = with inputs.self.homeModules; [ core ];
           };
           services = {
             openssh.enable = true;

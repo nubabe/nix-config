@@ -24,17 +24,7 @@
           };
           home-manager = {
             enable = true;
-            modules = [
-              {
-                nubabe = {
-                  graphical.browser.enable = true;
-                  terminal = {
-                    shell.enable = true;
-                    coreTools.enable = true;
-                  };
-                };
-              }
-            ];
+            modules = with inputs.self.homeModules; [ default ];
           };
           services = {
             tailscale = {

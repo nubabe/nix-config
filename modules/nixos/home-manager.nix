@@ -34,7 +34,7 @@
           useGlobalPkgs = true;
           useUserPackages = true;
           users.${user} = {
-            imports = [ inputs.self.homeModules.default ] ++ cfg.modules;
+            imports = cfg.modules;
             home.stateVersion = config.system.stateVersion;
           };
         };
