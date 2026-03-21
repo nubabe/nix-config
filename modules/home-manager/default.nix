@@ -6,7 +6,7 @@ in
 
 {
 
-  flake.modules.homeManager = {
+  flake.homeModules = {
 
     core = {
       imports = with hmModules; [
