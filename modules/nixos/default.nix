@@ -25,6 +25,7 @@
           enable = true;
           name = "Nuyan";
           username = "nubabe";
+          email = "nubabe.me@gmail.com";
           hashedPasswordFile = null;
           initialHashedPassword = null;
           authorizedSSHKeys = [ ];
