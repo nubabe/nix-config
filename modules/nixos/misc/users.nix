@@ -7,6 +7,7 @@
       config,
       lib,
       pkgs,
+      options,
       ...
     }:
 
@@ -14,6 +15,7 @@
 
     let
       cfg = config.nubabe.users;
+      userOpts = options.users.users.type.getSubOptions [ ];
     in
 
     {
@@ -30,34 +32,26 @@
         };
 
         name = mkOption {
-          type = types.str;
+          inherit (userOpts.description) type description;
           default = "nixos";
           example = "Alice";
-          description = "Name of the default user.";
         };
 
         hashedPasswordFile = mkOption {
-          type = types.nullOr types.path;
-          default = null;
-          example = "/run/secrets/hashed_user_password";
-          description = "Path to a file containing a hashed password. See users.users.<name>.hashedPasswordFile.";
+          inherit (userOpts.hashedPasswordFile) type description default;
         };
 
         initialHashedPassword = mkOption {
-          type = types.nullOr types.str;
-          default = null;
+          inherit (userOpts.initialHashedPassword) type description default;
           example = "$y$j9T$Q5yehP0GeReQZ9lkC2CNa1$JW2wFazO6DPLrSQmvunM4U1kQ1FT0QMuDzCf.sMGeq2";
-          description = "Hashed password. See users.users.<name>.initialHashedPassword";
         };
 
         authorizedSSHKeys = mkOption {
-          type = types.listOf types.str;
-          default = [ ];
-          example = [
-            "ssh-rsa AAAAB3NzaC1yc2etc/etc/etcjwrsh8e596z6J0l7 example@host"
-            "ssh-ed25519 AAAAC3NzaCetcetera/etceteraJZMfk3QPfQ foo@bar"
-          ];
-          description = "List of public SSH keys (alias for users.users.<username>.openssh.authorizedKeys.keys).";
+          inherit (userOpts.openssh.authorizedKeys.keys) type description default example;
+        };
+
+        shell = mkOption {
+          inherit (userOpts.shell) type description default example;
         };
       };
 
@@ -73,10 +67,11 @@
           openssh.authorizedKeys.keys = cfg.authorizedSSHKeys;
           hashedPasswordFile = cfg.hashedPasswordFile;
           initialHashedPassword = cfg.initialHashedPassword;
-          shell = pkgs.zsh;
+          shell = cfg.shell;
         };
 
-        programs.zsh.enable = true;
+        users.users.root.shell = cfg.shell;
+
       };
     };
 

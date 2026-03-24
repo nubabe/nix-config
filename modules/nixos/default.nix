@@ -2,41 +2,51 @@
 
 {
 
-  flake.modules.nixos.common =
-    {
-      config,
-      lib,
-      ...
-    }:
-    let
-      inherit (lib) mkEnableOption mkIf;
-      cfg = config.nubabe.common;
-    in
-    {
+  flake.nixosModules = {
 
-      options.nubabe.common.enable = mkEnableOption "nubabe common config";
+    core = {
+      nubabe = {
+        bootloader.enable = true;
+        core.enable = true;
+        home-manager.enable = true;
+        networking.enable = true;
 
-      config = mkIf cfg.enable {
-        nubabe = {
-          bootloader.enable = true;
-          networking.enable = true;
-          nixSettings.enable = true;
-          systemSettings.enable = true;
-          users = {
-            name = "Nuyan";
-            username = "nubabe";
-            hashedPasswordFile = null;
-            initialHashedPassword = null;
-            authorizedSSHKeys = [ ];
-          };
-          services.tailscale = {
-            apiKeyFile = null;
-            authKeyFile = null;
-          };
-          services.openssh.port = 2009;
+        services.openssh.port = 2009;
+        services.tailscale = {
+          enable = true;
+          apiKeyFile = null;
+          authKeyFile = null;
+        };
+
+        shell.enable = true;
+
+        users = {
+          enable = true;
+          name = "Nuyan";
+          username = "nubabe";
+          hashedPasswordFile = null;
+          initialHashedPassword = null;
+          authorizedSSHKeys = [ ];
         };
       };
-
     };
 
+    vm = {
+      nubabe.hardware.vm.enable = true;
+    };
+
+    server = {
+      nubabe = {
+        services = {
+          openssh.enable = true;
+          tailscale.tags = [ "nixos-server" ];
+        };
+      };
+    };
+
+    graphical = {
+      nubabe.graphical.enable = true;
+    };
+
+  };
 }

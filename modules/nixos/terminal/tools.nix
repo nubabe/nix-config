@@ -1,6 +1,20 @@
-{ ... }:
+{ inputs, ... }:
 
 {
+
+  flake.modules.nixos.coreTools =
+    { config, lib, ... }:
+    let
+      cfg = config.nubabe.terminal.coreTools;
+    in
+    {
+      options.nubabe.terminal.coreTools = lib.mkEnableOption "nubabe terminal core tools";
+
+      config = lib.mkIf cfg.enable {
+        nubabe.home-manager.modules.shared = [ inputs.self.modules.homeManager.coreTools ];
+      };
+    };
+
   flake.modules.homeManager.coreTools =
     { pkgs, ... }:
     {
@@ -18,5 +32,4 @@
         cat = "bat";
       };
     };
-
 }

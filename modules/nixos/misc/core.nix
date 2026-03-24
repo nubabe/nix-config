@@ -1,7 +1,7 @@
-{ ... }:
+{ withSystem, ...}:
 
 {
-  flake.modules.nixos.system =
+  flake.modules.nixos.core=
     {
       config,
       lib,
@@ -12,11 +12,11 @@
     with lib;
 
     let
-      cfg = config.nubabe.systemSettings;
+      cfg = config.nubabe.core;
     in
 
     {
-      options.nubabe.systemSettings.enable = mkEnableOption "nubabe misc system settings";
+      options.nubabe.core.enable = mkEnableOption "nubabe core system settings";
 
       config = mkIf cfg.enable {
 
@@ -24,6 +24,13 @@
           git
           neovim
         ];
+
+        nix = {
+          settings.experimental-features = [
+            "nix-command"
+            "flakes"
+          ];
+        };
 
         time.timeZone = "Europe/Berlin";
         i18n = {

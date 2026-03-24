@@ -7,6 +7,7 @@
       config,
       lib,
       pkgs,
+      options,
       ...
     }:
 
@@ -14,6 +15,7 @@
 
     let
       cfg = config.nubabe.services.tailscale;
+      opts = options.services.tailscale;
     in
 
     {
@@ -37,10 +39,7 @@
         };
 
         authKeyFile = mkOption {
-          type = types.nullOr types.path;
-          default = null;
-          example = "/run/secrets/tailscale_auth_key";
-          description = "Alias for services.tailscale.authKeyFile";
+          inherit (opts.authKeyFile) type default example description;
         };
 
         tags = mkOption {

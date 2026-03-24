@@ -16,17 +16,21 @@
       cfg = config.nubabe.home-manager;
 
       user = config.nubabe.users.username;
+
+      moduleOption = mkOption {
+          type = types.listOf types.deferredModule;
+          default = [ ];
+          description = "Modules to load into home-manager.";
+        };
     in
 
     {
 
       options.nubabe.home-manager = {
         enable = mkEnableOption "nubabe home-manager configuration";
-        modules = mkOption {
-          type = types.listOf types.deferredModule;
-          default = [ ];
-          description = "Modules to load into home-manager";
-        };
+        modules.user = moduleOption;
+        modules.root = moduleOption;
+        modules.shared = moduleOption;
       };
 
       config = mkIf cfg.enable {
@@ -34,7 +38,11 @@
           useGlobalPkgs = true;
           useUserPackages = true;
           users.${user} = {
-            imports = cfg.modules;
+            imports = cfg.modules.shared ++ cfg.modules.user;
+            home.stateVersion = config.system.stateVersion;
+          };
+          users.root = {
+            imports = cfg.modules.shared ++ cfg.modules.user;
             home.stateVersion = config.system.stateVersion;
           };
         };

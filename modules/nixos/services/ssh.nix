@@ -7,7 +7,7 @@
     {
       config,
       lib,
-      pkgs,
+      options,
       ...
     }:
 
@@ -15,6 +15,7 @@
 
     let
       cfg = config.nubabe.services.openssh;
+      opts = options.services.openssh;
     in
 
     {

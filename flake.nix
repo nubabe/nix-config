@@ -29,6 +29,9 @@
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
+    nixmate.url = "github:daskladas/nixmate";
+    nixmate.inputs.nixpkgs.follows = "nixpkgs-unstable";
+
   };
 
 }

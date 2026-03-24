@@ -8,35 +8,18 @@
     modules = [
       inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t490
       {
-        nubabe = {
-          common.enable = true;
-          graphical.enable = true;
-          hardware = {
-            disko = {
-              systemDisk = {
-                enable = true;
-                homeSize = "100%";
-                rootSize = "64G";
-                swapSize = "16G";
-                systemDisk = "/dev/sda";
-              };
-            };
-          };
-          home-manager = {
-            enable = true;
-            modules = with inputs.self.homeModules; [ default ];
-          };
-          services = {
-            tailscale = {
-              enable = true;
-              ipv4 = "100.99.1.1.";
-              tags = [ ];
-            };
-          };
-          users.enable = true;
+        nubabe.hardware.disko.systemDisk = {
+          enable = true;
+          rootSize = "64G";
+          homeSize = "100%";
+          swapSize = "16G";
         };
       }
-    ];
+    ]
+    ++ (with inputs.self.nixosModules; [
+      core
+      graphical
+    ]);
   };
 
 }
