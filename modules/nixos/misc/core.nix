@@ -21,9 +21,9 @@
       config = mkIf cfg.enable {
 
         environment.systemPackages = with pkgs; [
-          git
           neovim
         ];
+        programs.git.enable = true;
 
         nix = {
           settings.experimental-features = [

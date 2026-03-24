@@ -37,6 +37,13 @@
           example = "Alice";
         };
 
+        email = mkOption {
+          type = types.str;
+          default = null;
+          example = "alice@example.com";
+          description = "Email used for git, etc.";
+        }
+
         hashedPasswordFile = mkOption {
           inherit (userOpts.hashedPasswordFile) type description default;
         };

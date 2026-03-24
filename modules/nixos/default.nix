@@ -8,6 +8,7 @@
       nubabe = {
         bootloader.enable = true;
         core.enable = true;
+        coreTools.enable = true;
         home-manager.enable = true;
         networking.enable = true;
 
