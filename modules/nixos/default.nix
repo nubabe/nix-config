@@ -46,7 +46,7 @@
       };
     };
 
-    graphical = {
+    workstation = {
       nubabe.graphical.enable = true;
     };
 

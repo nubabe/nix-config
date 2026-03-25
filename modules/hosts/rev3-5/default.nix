@@ -18,7 +18,7 @@
     ]
     ++ (with inputs.self.nixosModules; [
       core
-      graphical
+      workstation
     ]);
   };
 
