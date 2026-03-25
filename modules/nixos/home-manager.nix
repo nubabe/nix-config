@@ -42,7 +42,7 @@
             home.stateVersion = config.system.stateVersion;
           };
           users.root = {
-            imports = cfg.modules.shared ++ cfg.modules.user;
+            imports = cfg.modules.shared ++ cfg.modules.root;
             home.stateVersion = config.system.stateVersion;
           };
         };
