@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, withSystem, ... }:
 
 {
 
@@ -8,12 +8,13 @@
       cfg = config.nubabe.terminal.coreTools;
     in
     {
-      options.nubabe.terminal.coreTools = lib.mkEnableOption "nubabe terminal core tools";
+      options.nubabe.terminal.coreTools.enable = lib.mkEnableOption "nubabe terminal core tools";
 
       config = lib.mkIf cfg.enable {
         nubabe.home-manager.modules.shared = with inputs.self.modules.homeManager; [
           coreTools
           git
+          nixmate
         ];
       };
     };
@@ -21,7 +22,6 @@
   flake.modules.homeManager.coreTools =
     { pkgs, ... }:
     {
-      home.packages = with pkgs; [ ];
       programs = {
         bat.enable = true;
         btop.enable = true;
@@ -36,22 +36,41 @@
       };
     };
 
-  flake.modules.homeManager.git = {osConfig, ...}: {
-    programs.git = {
-      enable = true;
-      settings = {
-        user.email = osConfig.nubabe.users.email;
-        user.name = osConfig.nubabe.users.username;
-        core.editor = "nvim";
-        init.defaultBranch = "main";
-        pull.rebase = true;
+  flake.modules.homeManager.git =
+    { osConfig, ... }:
+    {
+      programs.git = {
+        enable = true;
+        settings = {
+          user.email = osConfig.nubabe.users.email;
+          user.name = osConfig.nubabe.users.username;
+          core.editor = "nvim";
+          init.defaultBranch = "main";
+          pull.rebase = true;
+          push.autoSetupRemote = true;
+          help.autocorrect = 15;
+        };
+      };
+      home.shellAliases = {
+        ga = "git add .";
+        gc = "git commit";
+        gp = "git push";
+        gs = "git status";
       };
     };
-    home.shellAliases = {
-      ga = "git add .";
-      gc = "git commit";
-      gp = "git push";
+
+  flake.modules.homeManager.nixmate =
+    { pkgs, lib, ... }:
+    {
+      home.packages = withSystem pkgs.stdenv.hostPlatform.system (
+        { inputs', ... }: [ inputs'.nixmate.packages.default ]
+      );
+      xdg.configFile.${nixmate/config.toml}.source = pkgs.formats.toml.generate "nixmate/config.toml" {
+        theme = "tokyonight";
+        language = "english";
+        layout = "auto";
+        welcome_shown = true;
+      };
     };
-  };
 
 }
