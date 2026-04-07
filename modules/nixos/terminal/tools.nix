@@ -1,4 +1,4 @@
-{ inputs, withSystem, ... }:
+{ inputs, ... }:
 
 {
 
@@ -60,17 +60,9 @@
     };
 
   flake.modules.homeManager.nixmate =
-    { pkgs, lib, ... }:
+    { pkgs, lib, inputs', ... }:
     {
-      home.packages = withSystem pkgs.stdenv.hostPlatform.system (
-        { inputs', ... }: [ inputs'.nixmate.packages.default ]
-      );
-      xdg.configFile.${nixmate/config.toml}.source = pkgs.formats.toml.generate "nixmate/config.toml" {
-        theme = "tokyonight";
-        language = "english";
-        layout = "auto";
-        welcome_shown = true;
-      };
+      home.packages = [ inputs'.nixmate.packages.default ] ;
     };
 
 }

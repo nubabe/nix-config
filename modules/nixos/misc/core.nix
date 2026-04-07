@@ -1,7 +1,7 @@
-{ withSystem, ...}:
+{ ... }:
 
 {
-  flake.modules.nixos.core=
+  flake.modules.nixos.core =
     {
       config,
       lib,

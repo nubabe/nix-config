@@ -3,7 +3,7 @@
 {
 
   flake.modules.generic.home-manager =
-    { config, lib, ... }:
+    { config, lib, inputs', ... }:
 
     let
       inherit (lib)
@@ -37,6 +37,7 @@
         home-manager = {
           useGlobalPkgs = true;
           useUserPackages = true;
+          extraSpecialArgs = { inherit inputs'; };
           users.${user} = {
             imports = cfg.modules.shared ++ cfg.modules.user;
             home.stateVersion = config.system.stateVersion;
