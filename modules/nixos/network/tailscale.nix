@@ -11,7 +11,9 @@
       ...
     }:
 
-    with lib;
+    inherit (lib) mkEnableOption mkOption types mkIf concatStringsSep map optionals;
+
+
 
     let
       cfg = config.nubabe.services.tailscale;

@@ -11,7 +11,9 @@
       ...
     }:
 
-    with lib;
+    inherit (lib) mkEnableOption mkOption types mkIf optional;
+
+
 
     let
       cfg = config.nubabe.users;
