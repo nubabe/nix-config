@@ -9,8 +9,6 @@
       ...
     }:
 
-
-
     let
       inherit (lib) mkEnableOption mkIf;
       cfg = config.nubabe.core;

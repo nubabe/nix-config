@@ -11,10 +11,16 @@
       ...
     }:
 
-
-
     let
-      inherit (lib) mkEnableOption mkOption types mkIf concatStringsSep map optionals;
+      inherit (lib)
+        mkEnableOption
+        mkOption
+        types
+        mkIf
+        concatStringsSep
+        map
+        optionals
+        ;
       cfg = config.nubabe.services.tailscale;
       opts = options.services.tailscale;
     in

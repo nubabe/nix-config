@@ -11,10 +11,14 @@
       ...
     }:
 
-
-
     let
-      inherit (lib) mkEnableOption mkOption types mkIf optional;
+      inherit (lib)
+        mkEnableOption
+        mkOption
+        types
+        mkIf
+        optional
+        ;
       cfg = config.nubabe.users;
       userOpts = options.users.users.type.getSubOptions [ ];
     in

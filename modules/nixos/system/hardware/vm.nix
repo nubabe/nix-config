@@ -10,8 +10,6 @@
       ...
     }:
 
-
-
     let
       inherit (lib) mkEnableOption mkIf;
       cfg = config.nubabe.hardware.vm;
