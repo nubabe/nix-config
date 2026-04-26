@@ -3,7 +3,12 @@
 {
 
   flake.modules.generic.home-manager =
-    { config, lib, inputs', ... }:
+    {
+      config,
+      lib,
+      inputs',
+      ...
+    }:
 
     let
       inherit (lib)
@@ -18,10 +23,10 @@
       user = config.nubabe.users.username;
 
       moduleOption = mkOption {
-          type = types.listOf types.deferredModule;
-          default = [ ];
-          description = "Modules to load into home-manager.";
-        };
+        type = types.listOf types.deferredModule;
+        default = [ ];
+        description = "Modules to load into home-manager.";
+      };
     in
 
     {

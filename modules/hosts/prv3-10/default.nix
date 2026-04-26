@@ -13,6 +13,7 @@
           homeSize = null;
           swapSize = "8G";
         };
+        nubabe.services.tailscale.ipv4 = "100.99.0.1";
       }
     ]
     ++ (with inputs.self.nixosModules; [

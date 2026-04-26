@@ -54,11 +54,21 @@
         };
 
         authorizedSSHKeys = mkOption {
-          inherit (userOpts.openssh.authorizedKeys.keys) type description default example;
+          inherit (userOpts.openssh.authorizedKeys.keys)
+            type
+            description
+            default
+            example
+            ;
         };
 
         shell = mkOption {
-          inherit (userOpts.shell) type description default example;
+          inherit (userOpts.shell)
+            type
+            description
+            default
+            example
+            ;
         };
       };
 
@@ -68,6 +78,7 @@
           description = cfg.name;
           extraGroups = [
             "wheel"
+            "video"
           ]
           ++ (optional config.networking.networkmanager.enable "networkmanager");
           packages = with pkgs; [ ];

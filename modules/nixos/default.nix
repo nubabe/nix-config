@@ -5,11 +5,13 @@
   flake.nixosModules = {
 
     core = {
+      users.users.nubabe.initialPassword = "test";
       nubabe = {
         bootloader.enable = true;
         core.enable = true;
         home-manager.enable = true;
         networking.enable = true;
+        stylix.enable = true;
 
         services.openssh.port = 2009;
         services.tailscale = {
@@ -26,8 +28,8 @@
           name = "Nuyan";
           username = "nubabe";
           email = "nubabe.me@gmail.com";
-          hashedPasswordFile = null;
-          initialHashedPassword = null;
+          # hashedPasswordFile = "./_tmppwd";
+          # initialHashedPassword = "$y$j9T$EBvOEz17Xq4Ky72Xl83kU0$F0fOsIn7FVHviLOjvtzqEqhkPqUe2O9B3ZOn8ZVQfY6";
           authorizedSSHKeys = [ ];
         };
       };
@@ -47,7 +49,9 @@
     };
 
     workstation = {
-      nubabe.graphical.enable = true;
+      nubabe.graphical = {
+        enable = true;
+      };
     };
 
   };

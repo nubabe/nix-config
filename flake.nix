@@ -29,8 +29,9 @@
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
-    nixmate.url = "github:daskladas/nixmate";
-    nixmate.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    stylix.url = "github:nix-community/stylix/release-25.11";
+    stylix.inputs.nixpkgs.follows = "nixpkgs";
+    stylix.inputs.flake-parts.follows = "flake-parts";
 
   };
 

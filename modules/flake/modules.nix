@@ -9,13 +9,13 @@ in
 
   flake = {
     nixosModules.default = {
-      imports = attrValues (modules.generic or {}) ++ attrValues (modules.nixos or {});
+      imports = attrValues (modules.generic or { }) ++ attrValues (modules.nixos or { });
     };
     darwinModules.default = {
-      imports = attrValues (modules.generic or {}) ++ attrValues (modules.darwin or {});
+      imports = attrValues (modules.generic or { }) ++ attrValues (modules.darwin or { });
     };
     homeModules.default = {
-      imports = attrValues (modules.homeManager or {});
+      imports = attrValues (modules.homeManager or { });
     };
   };
 

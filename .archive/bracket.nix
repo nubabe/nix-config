@@ -40,7 +40,7 @@ in
       group = "${cfg.user}";
     };
 
-    users.groups.${cfg.user} = {};
+    users.groups.${cfg.user} = { };
 
     services.postgresql = {
       enable = true;

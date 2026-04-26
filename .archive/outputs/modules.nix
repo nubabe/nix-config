@@ -7,9 +7,11 @@
 
 {
   flake.nixosModules = {
-    modules = { ... }: {
-      _module.args.inputs = inputs;
-      imports = [ paths.modules ];
-    };
+    modules =
+      { ... }:
+      {
+        _module.args.inputs = inputs;
+        imports = [ paths.modules ];
+      };
   };
 }

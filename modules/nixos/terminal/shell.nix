@@ -25,21 +25,30 @@
       };
     };
 
-  flake.modules.homeManager.shell = {
-    home.shell.enableZshIntegration = true;
+  flake.modules.homeManager.shell =
+    { pkgs, ... }:
+    {
+      home.shell.enableZshIntegration = true;
 
-    programs.zsh = {
-      enable = true;
+      programs.zsh = {
+        enable = true;
 
-      autocd = true;
-      autosuggestion.enable = true;
-      defaultKeymap = "viins";
-      syntaxHighlighting.enable = true;
+        autocd = true;
+        autosuggestion.enable = true;
+        syntaxHighlighting.enable = true;
+
+        plugins = [
+          {
+            name = "vi-mode";
+            src = pkgs.zsh-vi-mode;
+            file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+          }
+        ];
+      };
+
+      home.shellAliases = {
+        l = "ls -la --color=auto";
+        sudo = "sudo ";
+      };
     };
-
-    home.shellAliases = {
-      l = "ls -la --color=auto";
-      sudo = "sudo ";
-    };
-  };
 }

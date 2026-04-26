@@ -39,7 +39,12 @@
         };
 
         authKeyFile = mkOption {
-          inherit (opts.authKeyFile) type default example description;
+          inherit (opts.authKeyFile)
+            type
+            default
+            example
+            description
+            ;
         };
 
         tags = mkOption {

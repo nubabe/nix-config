@@ -20,9 +20,7 @@
 
       config = mkIf cfg.enable {
 
-        environment.systemPackages = with pkgs; [
-          neovim
-        ];
+        environment.systemPackages = with pkgs; [ ];
         programs.git.enable = true;
 
         nix = {

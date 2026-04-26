@@ -2,6 +2,8 @@
 
 let
   inherit (lib) mapAttrs attrByPath splitString;
+
+  stringToAttr = attrName: attrSet: attrByPath (splitString "." attrName) null attrSet;
 in
 
 {

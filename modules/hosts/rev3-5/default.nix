@@ -14,11 +14,13 @@
           homeSize = "100%";
           swapSize = "16G";
         };
+        nubabe.services.tailscale.ipv4 = "100.99.1.1";
       }
     ]
     ++ (with inputs.self.nixosModules; [
       core
       workstation
+      vm
     ]);
   };
 

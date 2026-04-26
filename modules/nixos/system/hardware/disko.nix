@@ -48,7 +48,6 @@
 
       config = mkIf cfg.enable {
 
-
         disko.devices = {
           disk = {
             systemDisk = {
