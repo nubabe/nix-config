@@ -11,11 +11,10 @@
       ...
     }:
 
-    inherit (lib) mkEnableOption mkOption types mkIf;
-
 
 
     let
+      inherit (lib) mkEnableOption mkOption types mkIf;
       cfg = config.nubabe.services.openssh;
       opts = options.services.openssh;
     in

@@ -10,11 +10,10 @@
       ...
     }:
 
-    inherit (lib) mkEnableOption mkOption types mkIf;
-
 
 
     let
+      inherit (lib) mkEnableOption mkOption types mkIf;
       cfg = config.nubabe.hardware.disko.systemDisk;
     in
 

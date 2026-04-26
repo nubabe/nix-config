@@ -10,11 +10,10 @@
       ...
     }:
 
-    inherit (lib) mkEnableOption mkIf;
-
 
 
     let
+      inherit (lib) mkEnableOption mkIf;
       cfg = config.nubabe.networking;
     in
 
