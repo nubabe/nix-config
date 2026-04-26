@@ -65,7 +65,7 @@
         };
       };
       home.shellAliases = {
-        ga = "git add .";
+        ga = "git add -A";
         gc = "git commit";
         gp = "git push";
         gs = "git status";
