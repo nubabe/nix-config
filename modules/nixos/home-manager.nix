@@ -20,7 +20,7 @@
         ;
       cfg = config.nubabe.home-manager;
 
-      user = config.nubabe.users.username;
+      user = config.nubabe.system.users.username;
 
       moduleOption = mkOption {
         type = types.listOf types.deferredModule;

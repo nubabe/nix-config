@@ -7,13 +7,13 @@
     stateVersion = "25.11";
     modules = [
       {
-        nubabe.hardware.disko.systemDisk = {
+        nubabe.system.disko.systemDisk = {
           enable = true;
           rootSize = "100%";
           homeSize = null;
           swapSize = "8G";
         };
-        nubabe.services.tailscale.ipv4 = "100.99.0.1";
+        nubabe.system.tailscale.ipv4 = "100.99.0.1";
       }
     ]
     ++ (with inputs.self.nixosModules; [
