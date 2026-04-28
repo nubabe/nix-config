@@ -34,14 +34,18 @@
         enable = true;
 
         autocd = true;
-        autosuggestion.enable = true;
+        autosuggestion.enable = false;
         syntaxHighlighting.enable = true;
 
         plugins = [
           {
-            name = "vi-mode";
+            name = "zsh-vi-mode";
             src = pkgs.zsh-vi-mode;
-            file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+            # file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+          }
+          {
+            name = "zsh-autocomplete";
+            src = pkgs.zsh-autocomplete;
           }
         ];
       };
